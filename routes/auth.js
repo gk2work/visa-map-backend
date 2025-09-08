@@ -1,5 +1,4 @@
-﻿module.exports = require('express').Router();
-const express = require('express');
+﻿const express = require('express');
 const { body, param } = require('express-validator');
 const authController = require('../controllers/authController');
 const { authenticate, refreshToken, authRateLimit } = require('../middleware/auth');

@@ -202,7 +202,7 @@ const startServer = async () => {
     await connectDB();
     
     // Start server
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 5002;
     const server = app.listen(PORT, () => {
       logger.info(`🚀 VisaMap Backend Server running on port ${PORT}`);
       logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
