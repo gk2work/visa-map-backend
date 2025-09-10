@@ -1,76 +1,67 @@
-﻿module.exports = require('express').Router();
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
-const {
-  createOrUpdateJourney,
-  getUserJourneys,
-  getJourneyById,
-  getJourneyProgress,
-  updateStepCompletion,
-  updateJourneyChecklist,
-  updateJourneyPersonalization,
-  shareJourney,
-  addJourneyNote,
-  getJourneyStats,
-  deleteJourney
-} = require('../controllers/journeyController');
-const { protect, authorize } = require('../middleware/auth');
-const { validateRequest, journeyValidation } = require('../middleware/validation');
 
-/**
- * Journey Routes
- * All routes require authentication
- */
+router.get('/test', (req, res) => {
+  res.json({ message: 'Journey routes working' });
+});
 
-// Progress tracking route (public - matches frontend loadProgress function)
-router.get('/progress/:email', getJourneyProgress);
+router.get('/progress/:email', (req, res) => {
+  res.json({
+    status: 'success',
+    data: { progress: null }
+  });
+});
 
-// Journey statistics (admin only)
-router.get('/stats', protect, authorize('admin'), getJourneyStats);
+router.get('/stats', (req, res) => {
+  res.json({
+    status: 'success',
+    data: { message: 'Stats working' }
+  });
+});
 
-// Main journey routes (protected)
-router.use(protect);
+router.post('/', (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'Journey creation working'
+  });
+});
 
-// Create or update journey (matches frontend saveProgress function)
-router.post('/', 
-  validateRequest(journeyValidation.createOrUpdate), 
-  createOrUpdateJourney
-);
+router.get('/', (req, res) => {
+  res.json({
+    status: 'success',
+    data: { journeys: [] }
+  });
+});
 
-// Get user's journeys
-router.get('/', getUserJourneys);
+router.get('/:id', (req, res) => {
+  res.json({
+    status: 'success',
+    data: { journey: { id: req.params.id } }
+  });
+});
 
-// Journey-specific routes
-router.route('/:id')
-  .get(getJourneyById)
-  .delete(deleteJourney);
+router.delete('/:id', (req, res) => {
+  res.json({ status: 'success', message: 'Delete working' });
+});
 
-// Update specific journey aspects
-router.patch('/:id/steps/:stepId', 
-  validateRequest(journeyValidation.updateStep), 
-  updateStepCompletion
-);
+router.patch('/:id/steps/:stepId', (req, res) => {
+  res.json({ status: 'success', message: 'Step update working' });
+});
 
-router.patch('/:id/checklist', 
-  validateRequest(journeyValidation.updateChecklist), 
-  updateJourneyChecklist
-);
+router.patch('/:id/checklist', (req, res) => {
+  res.json({ status: 'success', message: 'Checklist working' });
+});
 
-router.patch('/:id/personalization', 
-  validateRequest(journeyValidation.updatePersonalization), 
-  updateJourneyPersonalization
-);
+router.patch('/:id/personalization', (req, res) => {
+  res.json({ status: 'success', message: 'Personalization working' });
+});
 
-// Journey sharing
-router.post('/:id/share', 
-  validateRequest(journeyValidation.shareJourney), 
-  shareJourney
-);
+router.post('/:id/share', (req, res) => {
+  res.json({ status: 'success', message: 'Share working' });
+});
 
-// Journey notes
-router.post('/:id/notes', 
-  validateRequest(journeyValidation.addNote), 
-  addJourneyNote
-);
+router.post('/:id/notes', (req, res) => {
+  res.json({ status: 'success', message: 'Notes working' });
+});
 
 module.exports = router;

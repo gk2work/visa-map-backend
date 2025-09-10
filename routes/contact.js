@@ -1,9 +1,11 @@
-﻿module.exports = require('express').Router();
+﻿const express = require('express');
 const Contact = require('../models/Contact');
 const User = require('../models/User');
 const AppError = require('../middleware/errorHandler').AppError;
 const logger = require('../utils/logger');
 const emailService = require('../services/emailService');
+
+const router = express.Router();
 
 /**
  * Contact Controller - Handles contact form submissions and lead management
@@ -540,15 +542,4 @@ const bulkUpdateContacts = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  submitContactForm,
-  getAllContacts,
-  getContactById,
-  updateContact,
-  assignContact,
-  addContactResponse,
-  getContactStats,
-  getOverdueFollowUps,
-  getHighPriorityContacts,
-  bulkUpdateContacts
-};
+module.exports = router;

@@ -1,5 +1,4 @@
-﻿module.exports = require('express').Router();
-const express = require('express');
+﻿const express = require('express');
 const { body, param, query } = require('express-validator');
 const countryController = require('../controllers/countryController');
 const { authenticate, authorize } = require('../middleware/auth');

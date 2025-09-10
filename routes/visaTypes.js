@@ -1,5 +1,4 @@
-﻿module.exports = require('express').Router();
-const express = require('express');
+﻿const express = require('express');
 const { body, param, query } = require('express-validator');
 const visaController = require('../controllers/visaController');
 const { authenticate, authorize } = require('../middleware/auth');
